@@ -23,7 +23,6 @@ public class CompanyBaseInfoAdapter extends BaseAdapter {
     public CompanyBaseInfoAdapter(Context context, LinkedList<HashMap<String, Object>> data) {
         this.context = context;
         this.data = data;
-        Log.i("yang", "data=" + data);
     }
 
 
@@ -53,11 +52,7 @@ public class CompanyBaseInfoAdapter extends BaseAdapter {
             ImageView icon = itemView.findViewById(R.id.item_icon);
             TextView text = itemView.findViewById(R.id.item_text);
 
-            Log.i("yang", "i-1=" + (i - 1));
-
             HashMap<String, Object> map = data.get(i - 1);
-
-            Log.i("yang", "map=" + map);
 
             int icon_id = (int) map.get("icon");
             icon.setImageResource(icon_id);
