@@ -1,6 +1,7 @@
 package rednum.com.infbigand;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,5 +19,10 @@ public class MainActivity extends  Activity {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         setContentView(R.layout.activity_main);
+    }
+
+    public void onProjectTopo(View view) {
+        Intent intent = new Intent(this, ProjectTopoActivity.class);
+        startActivity(intent);
     }
 }
