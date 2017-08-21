@@ -1,7 +1,6 @@
 package rednum.com.infbigand;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +21,6 @@ public class CreditLevelAdapter extends BaseAdapter {
     public CreditLevelAdapter(Context context, LinkedList<HashMap<String, String>> data) {
         this.context = context;
         this.data = data;
-
-        Log.i("tang", "data=" + data);
     }
 
     @Override
