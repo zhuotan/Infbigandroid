@@ -1,295 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#E8E8E8">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/major_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E8E8E8">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <ImageView
-                    android:id="@+id/back_to_main"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="9dp"
-                    android:src="@mipmap/back_icon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="竞争分析"
-                    android:textSize="20sp" />
-
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/search_shape_cornor"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:padding="5dp"
-                        android:src="@mipmap/search_icon" />
-
-                    <EditText
-                        android:id="@+id/inner_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:hint="搜索 标题|内容|作者"
-                        android:singleLine="true" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/conduct_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="3dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="确定"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="#9e9e9e" />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
-                <LinearLayout
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:orientation="horizontal">
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:id="@+id/back_to_main"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="9dp"
+                        android:src="@mipmap/back_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="left|center_vertical"
-                        android:text="省        份:"
-                        android:textSize="18sp" />
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="竞争分析"
+                        android:textSize="20sp" />
 
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/select_province"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:background="@drawable/search_shape_cornor"
                         android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/show_province_textview"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="9dp"
-                            android:layout_weight="1"
-                            android:gravity="left|center_vertical"
-                            android:hint="请选择省份"
-                            android:textSize="15sp" />
-
 
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
-                            android:layout_gravity="right|center_vertical"
                             android:padding="5dp"
-                            android:src="@mipmap/next_arrow_icon" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="#9e9e9e" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="left|center_vertical"
-                        android:text="备        案:"
-                        android:textSize="18sp" />
-
-                    <RadioGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/no_record"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="无" />
-
-                        <RadioButton
-                            android:id="@+id/local_company"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="本地企业" />
-
-                        <RadioButton
-                            android:id="@+id/company_out_of_province"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="省外企业" />
-
-                        <RadioButton
-                            android:id="@+id/all_company"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="全部" />
-
-                    </RadioGroup>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="#9e9e9e" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="left|center_vertical"
-                        android:text="信用评价:"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:id="@+id/select_credit_level"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/show_credit_level"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="9dp"
-                            android:layout_weight="1"
-                            android:gravity="left|center_vertical"
-                            android:hint="请选择类别|信用评价"
-                            android:textSize="15sp" />
-
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right|center_vertical"
-                            android:padding="5dp"
-                            android:src="@mipmap/next_arrow_icon" />
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="#9e9e9e" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="left|center_vertical"
-                        android:text="注册资本:"
-                        android:textSize="18sp" />
-
-
-                    <LinearLayout
-                        android:id="@+id/register_capital"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                            android:src="@mipmap/search_icon" />
 
                         <EditText
-                            android:id="@+id/show_register_capital_textview"
+                            android:id="@+id/inner_search"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="left|bottom"
-                            android:layout_weight="1"
                             android:background="@null"
-                            android:hint="请输入资本金(万元)"
-                            android:singleLine="true"
-                            android:textSize="15sp" />
-
+                            android:hint="搜索 标题|内容|作者"
+                            android:singleLine="true" />
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/conduct_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@drawable/text_background"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="确定"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <View
@@ -297,196 +99,410 @@
                     android:layout_height="1px"
                     android:background="#9e9e9e" />
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="left|center_vertical"
-                        android:text="企业资质:"
-                        android:textSize="18sp" />
-
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/company_capitude"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp">
+                        android:layout_height="40dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/show_company_capitude_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="left|center_vertical"
+                            android:text="省        份:"
+                            android:textSize="18sp" />
+
+
+                        <LinearLayout
+                            android:id="@+id/select_province"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/show_province_textview"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="9dp"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:hint="请选择省份"
+                                android:textSize="15sp" />
+
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="right|center_vertical"
+                                android:padding="5dp"
+                                android:src="@mipmap/next_arrow_icon" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="#9e9e9e" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="left|center_vertical"
+                            android:text="备        案:"
+                            android:textSize="18sp" />
+
+                        <RadioGroup
+                            android:id="@+id/beian"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="left|center_vertical"
-                            android:hint="请选择资质类别"
-                            android:singleLine="true"
-                            android:textSize="15sp" />
+                            android:orientation="horizontal">
 
+                            <RadioButton
+                                android:id="@+id/no_record"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="无" />
 
-                        <ImageView
-                            android:id="@+id/add_company_capitude"
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right|center_vertical"
-                            android:padding="2dp"
-                            android:src="@mipmap/add_icon" />
+                            <RadioButton
+                                android:id="@+id/local_company"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="本地企业" />
+
+                            <RadioButton
+                                android:id="@+id/company_out_of_province"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="省外企业" />
+
+                            <RadioButton
+                                android:id="@+id/all_company"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="全部" />
+
+                        </RadioGroup>
+
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/fill_view"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="#9e9e9e"
-                    android:visibility="gone" />
-
-
-                <LinearLayout
-                    android:id="@+id/capitude_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="left|center_vertical"
-                        android:text="企业资质:"
-                        android:textSize="18sp"
-                        android:visibility="invisible" />
-
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="#9e9e9e" />
 
                     <LinearLayout
-                        android:id="@+id/company_capitude_2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp">
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/show_company_capitude_textview_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="left|center_vertical"
+                            android:text="信用评价:"
+                            android:textSize="18sp" />
+
+                        <LinearLayout
+                            android:id="@+id/select_credit_level"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/show_credit_level"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="9dp"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:hint="请选择类别|信用评价"
+                                android:textSize="15sp" />
+
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="right|center_vertical"
+                                android:padding="5dp"
+                                android:src="@mipmap/next_arrow_icon" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="#9e9e9e" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="left|center_vertical"
+                            android:text="注册资本:"
+                            android:textSize="18sp" />
+
+
+                        <LinearLayout
+                            android:id="@+id/register_capital"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="left|center_vertical"
-                            android:hint="请选择资质名称"
-                            android:singleLine="true"
-                            android:textSize="15sp" />
+                            android:orientation="horizontal">
 
+                            <EditText
+                                android:id="@+id/show_register_capital_textview"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="left|bottom"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:hint="请输入资本金(万元)"
+                                android:singleLine="true"
+                                android:textSize="15sp" />
 
-                        <ImageView
-                            android:id="@+id/add_company_capitude_2"
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right|center_vertical"
-                            android:padding="2dp"
-                            android:src="@mipmap/add_icon" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/fill_view_2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="#9e9e9e"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/capitude_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="left|center_vertical"
-                        android:text="企业资质:"
-                        android:textSize="18sp"
-                        android:visibility="invisible" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="#9e9e9e" />
 
 
                     <LinearLayout
-                        android:id="@+id/company_capitude_3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp">
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/show_company_capitude_textview_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="left|center_vertical"
+                            android:text="企业资质:"
+                            android:textSize="18sp" />
+
+
+                        <LinearLayout
+                            android:id="@+id/company_capitude"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="left|center_vertical"
-                            android:hint="请选择资质等级"
-                            android:singleLine="true"
-                            android:textSize="15sp" />
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp">
+
+                            <TextView
+                                android:id="@+id/show_company_capitude_textview"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:hint="请选择资质类别"
+                                android:singleLine="true"
+                                android:textSize="15sp" />
 
 
-                        <ImageView
-                            android:id="@+id/add_company_capitude_3"
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right|center_vertical"
-                            android:padding="2dp"
-                            android:src="@mipmap/add_icon" />
+                            <ImageView
+                                android:id="@+id/add_company_capitude"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="right|center_vertical"
+                                android:padding="2dp"
+                                android:src="@mipmap/add_icon" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
+                    <View
+                        android:id="@+id/fill_view"
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="#9e9e9e"
+                        android:visibility="gone" />
+
+
+                    <LinearLayout
+                        android:id="@+id/capitude_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="left|center_vertical"
+                            android:text="企业资质:"
+                            android:textSize="18sp"
+                            android:visibility="invisible" />
+
+
+                        <LinearLayout
+                            android:id="@+id/company_capitude_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp">
+
+                            <TextView
+                                android:id="@+id/show_company_capitude_textview_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:hint="请选择资质名称"
+                                android:singleLine="true"
+                                android:textSize="15sp" />
+
+
+                            <ImageView
+                                android:id="@+id/add_company_capitude_2"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="right|center_vertical"
+                                android:padding="2dp"
+                                android:src="@mipmap/add_icon" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/fill_view_2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="#9e9e9e"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/capitude_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="left|center_vertical"
+                            android:text="企业资质:"
+                            android:textSize="18sp"
+                            android:visibility="invisible" />
+
+
+                        <LinearLayout
+                            android:id="@+id/company_capitude_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp">
+
+                            <TextView
+                                android:id="@+id/show_company_capitude_textview_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:hint="请选择资质等级"
+                                android:singleLine="true"
+                                android:textSize="15sp" />
+
+
+                            <ImageView
+                                android:id="@+id/add_company_capitude_3"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="right|center_vertical"
+                                android:padding="2dp"
+                                android:src="@mipmap/add_icon" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
-
-
             </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="#CFCFCF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/total_num"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <TextView
+                android:id="@+id/confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ff0000"
+                android:gravity="center"
+                android:text="确    定"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
-    </ScrollView>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/bottom_line"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:background="#CFCFCF"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/total_num"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2" />
-
-        <TextView
-            android:id="@+id/confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#ff0000"
-            android:gravity="center"
-            android:text="确    定"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-</RelativeLayout>
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@style/RedNum_ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateDrawable="@drawable/progressbar_rotate"
+        android:visibility="gone" />
+</FrameLayout>

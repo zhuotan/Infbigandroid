@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -29,6 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -193,16 +195,17 @@ public class NetProcess {
             doc = conn.get();
             String str = doc.select("body").text();
 
-            Log.i("str", "str=" + str);
-//            Gson gson = new Gson();
-//
-//            ArrayList list = gson.fromJson(str, ArrayList.class);
-//
-//            for (int i = 0; i < list.size(); i++) {
-//                LinkedTreeMap<String, String> map = (LinkedTreeMap<String, String>) list.get(i);
-//                String content = map.get("INTELLIGENCE");
-//                returnData.add(content);
-//            }
+            Gson gson = new Gson();
+
+            ArrayList list = gson.fromJson(str, ArrayList.class);
+
+            for (int i = 0; i < list.size(); i++) {
+                LinkedTreeMap<String, String> map = (LinkedTreeMap<String, String>) list.get(i);
+                String content = map.get("INTELLIGENCE_GRADE");
+                returnData.add(content);
+            }
+
+            Log.i("str", "data=" + returnData);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -210,6 +213,106 @@ public class NetProcess {
 
         return returnData;
 
+    }
+
+    public static LinkedList<HashMap<String, String>> requestQeuryData(HashMap<String, String> getRequestHead) {
+        LinkedList<HashMap<String, String>> returnData = new LinkedList<>();
+
+        String url = "http://192.168.1.84:8080/suitangmap/CptAnalysisAction?method=GetInfo&area_id=" + (getRequestHead.get("area_id") == null ? "" : getRequestHead.get("area_id")) + "&beian=" + (getRequestHead.get("beian") == null ? "" : getRequestHead.get("beian")) + "&xinyong=" + (getRequestHead.get("xinyong") == null ? "" : getRequestHead.get("xinyong")) +
+                "&zizhi=" + (getRequestHead.get("zizhi") == null ? "" : getRequestHead.get("zizhi")) + "&zijin=" + (getRequestHead.get("zijin") == null ? "" : getRequestHead.get("zijin")) + "&level=" + (getRequestHead.get("level") == null ? "" : getRequestHead.get("level"));
+        Document doc = null;
+
+        Log.i("url", "url=" + url);
+        try {
+            Log.i("content", "=====> 开始联网");
+            Connection conn = Jsoup.connect(url);
+            conn.timeout(60000);
+            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+
+            doc = conn.get();
+            String str = doc.select("body").text();
+
+            Gson gson = new Gson();
+            List<LinkedTreeMap<String, String>> list = gson.fromJson(str, List.class);
+
+            for (int i = 0; i < list.size(); i++) {
+                LinkedTreeMap<String, String> map = list.get(i);
+                String companyName = map.get("COMPANY_NAME");
+                String province = map.get("ADDRESS");
+                String creditLevel = map.get("level");
+                String beian = map.get("company_type");
+                String intell = map.get("INTELLIGENCE");
+
+                HashMap<String, String> data = new HashMap<>();
+                data.put("companyName", companyName);
+                data.put("province", province);
+                data.put("creditLevel", creditLevel);
+                data.put("beian", beian);
+                data.put("intell", intell);
+
+                returnData.add(data);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnData;
+    }
+
+    public static ArrayList<String> searchSpecifiedCompany(String company) {
+        ArrayList<String> returnData;
+
+        String url = "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=nameSearch&name=" + company;
+        Document doc = null;
+
+        Log.i("company", "url=" + url);
+        try {
+            Log.i("content", "=====> 开始搜索公司");
+            Connection conn = Jsoup.connect(url);
+            conn.timeout(5000);
+            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+
+            doc = conn.get();
+            String str = doc.select("body").text();
+
+            Gson gson = new Gson();
+            returnData = gson.fromJson(str, ArrayList.class);
+
+            return returnData;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<String> searchSpecifiedProject(String project) {
+        ArrayList<String> returnData;
+
+        String url = "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=projectSearch&name=" + project;
+        Document doc = null;
+
+        Log.i("company", "url=" + url);
+        try {
+            Log.i("content", "=====> 开始搜索项目");
+            Connection conn = Jsoup.connect(url);
+            conn.timeout(5000);
+            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+
+            doc = conn.get();
+            String str = doc.select("body").text();
+
+            Gson gson = new Gson();
+            returnData = gson.fromJson(str, ArrayList.class);
+
+            Log.i("project", "returnData=" + returnData);
+
+
+            return returnData;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

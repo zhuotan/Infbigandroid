@@ -52,30 +52,47 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/search_shape_cornor"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/search_by_company_name"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/search_icon"
-                        android:scaleType="centerInside" />
-
-                    <EditText
-                        android:id="@+id/company_name"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginRight="8dp"
                         android:layout_weight="1"
-                        android:background="@null"
-                        android:hint="公司名称"
-                        android:textSize="18sp" />
+                        android:background="@drawable/search_shape_cornor"
+                        android:orientation="horizontal">
 
+                        <ImageView
+                            android:id="@+id/search_by_company_name"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:background="@mipmap/search_icon"
+                            android:scaleType="centerInside" />
 
+                        <EditText
+                            android:id="@+id/company_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_gravity="left|center_vertical"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="公司名称"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/search_company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/text_background"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="确定"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <ScrollView
@@ -105,28 +122,47 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/search_shape_cornor"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/search_by_project_name"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/search_icon"
-                        android:scaleType="centerInside" />
-
-                    <EditText
-                        android:id="@+id/project_name"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginRight="8dp"
                         android:layout_weight="1"
-                        android:background="@null"
-                        android:hint="项目名称"
-                        android:textSize="18sp" />
+                        android:background="@drawable/search_shape_cornor"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/search_by_project_name"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:background="@mipmap/search_icon"
+                            android:scaleType="centerInside" />
+
+                        <EditText
+                            android:id="@+id/project_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_gravity="left|center_vertical"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="项目名称"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/search_project"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/text_background"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="确定"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 

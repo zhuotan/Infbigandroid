@@ -46,5 +46,16 @@
         <item name="android:textColor">@color/text_checkbox</item>
     </style>
 
+    <style name="RedNum_ProgressBar">
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:indeterminateDuration">3500</item>
+        <item name="android:minWidth">30dip</item>
+        <item name="android:maxWidth">30dip</item>
+        <item name="android:minHeight">30dip</item>
+        <item name="android:maxHeight">30dip</item>
+        <item name="android:mirrorForRtl">false</item>
+    </style>
+
 </resources>
 
