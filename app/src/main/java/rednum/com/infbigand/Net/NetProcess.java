@@ -385,11 +385,8 @@ public class NetProcess {
 
             doc = conn.get();
             String str = doc.select("body").text();
-
             Gson gson = new Gson();
             returnData = gson.fromJson(str, ArrayList.class);
-
-            Log.i("level", "===>" + returnData);
             return returnData;
         } catch (IOException e) {
             e.printStackTrace();

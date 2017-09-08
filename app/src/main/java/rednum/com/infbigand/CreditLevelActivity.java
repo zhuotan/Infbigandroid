@@ -31,6 +31,7 @@ public class CreditLevelActivity extends Activity {
     private ArrayList<LinkedTreeMap<String, Object>> sourceData;
     private Handler mHandler;
     private ImageView backKey;
+    private String[] areaArray = {"中国", "北京", "安徽", "福建", "甘肃", "广东", "广西", "贵州", "海南", "河北", "河南", "黑龙江", "湖北", "湖南", "吉林", "江苏", "江西", "辽宁", "内蒙古", "宁夏", "青海", "山东", "山西", "陕西", "上海", "四川", "天津", "西藏", "新疆", "云南", "浙江", "重庆", "香港", "澳门", "台湾"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,9 @@ public class CreditLevelActivity extends Activity {
                 for (int i = 0; i < sourceData.size(); i++) {
                     HashMap<String, String> map = new HashMap<>();
                     map.put("year", "年度：" + sourceData.get(i).get("YEAR"));
-                    map.put("province", "省份：" + sourceData.get(i).get("AREA_ID"));
+                    String m = sourceData.get(i).get("AREA_ID").toString().replace(".0", "");
+                    int index = Integer.parseInt(m) - 1;
+                    map.put("province", "省份：" + areaArray[index]);
                     map.put("level", "等级：" + sourceData.get(i).get("LEVEL"));
                     map.put("type", "类型：" + sourceData.get(i).get("CATE"));
 

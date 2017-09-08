@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ArrayList<String> hot_search_project = new ArrayList<>();
 
     private String[] textBackgrounds = {
-            "#9F79EE", "#CD5C5C", "#CDAD00", "#8B7D6B", "#4682B4", "#668B8B", "#548B54", "#104E8B", "#1E90FF"
+            "#B29F79EE", "#B2CD5C5C", "#B2CDAD00", "#B28B7D6B", "#B24682B4", "#B2668B8B", "#B2548B54", "#B2104E8B", "#B21E90FF"
     };
 
     private FlowLayout hotCompany;
