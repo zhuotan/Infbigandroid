@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="50dp"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/member_info_listview"
+    <TextView
+        android:id="@+id/company_zizhi_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_background"></ListView>
+        android:gravity="left|center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="2dp"
+        android:textSize="16sp" />
 
 </LinearLayout>

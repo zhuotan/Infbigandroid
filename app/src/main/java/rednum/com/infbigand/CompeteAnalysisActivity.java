@@ -8,9 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -23,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,16 +30,21 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import rednum.com.infbigand.Net.NetProcess;
+import rednum.com.infbigand.System.StatusBarUtil;
 
 /**
  * Created by Administrator on 2017/8/22.
  */
 
-public class CompeteAnalysisActivity extends Activity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class CompeteAnalysisActivity extends Activity implements View.OnClickListener {
     private LinearLayout selectProvince;
     private String[] provinceArray = {
             "全部", "北京", "安徽", "福建", "甘肃", "广东", "广西", "贵州", "海南", "河北", "河南", "黑龙江", "湖北", "湖南", "吉林", "江苏",
             "江西", "辽宁", "内蒙古", "宁夏", "青海", "山东", "山西", "陕西", "上海", "四川", "天津", "西藏", "新疆", "云南", "浙江", "重庆"
+    };
+
+    private String[] beianArray = {
+            "无", "本地企业", "省外企业", "全部"
     };
 
     private String[] typeArray = {
@@ -55,6 +57,7 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
             "勘察企业", "设计企业", "建筑业企业", "工程管理", "招标代理机构", "设计与施工一体化企业"
     };
 
+    private TextView showBeian;
     private TextView showProvince;
     private TextView showCreditLevel;
     private LinearLayout registerCapital;
@@ -62,6 +65,7 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
     private String typeAndLevel;
     private EditText capitalCash;
 
+    private LinearLayout beianLinearLayout;
     private LinearLayout companyCapitude;
     private ImageView addCompanyCapitude;
     private ImageView addCompanyCapitude2;
@@ -74,8 +78,6 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
     private TextView capitude2;
     private TextView capitude3;
 
-    private RadioGroup radioGroup;
-
     private LinearLayout companyCapitude_All_2;
     private LinearLayout companyCapitude_All_3;
     private LinearLayout companyCapitude2;
@@ -84,7 +86,6 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
     private LinearLayout bottomLine;
 
     private View line1, line2;  // 资质中的分割线
-    private String selectCondition;
 
     private ArrayList<String> intellName;
     private ArrayList<String> intellLevel;
@@ -105,11 +106,13 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.compete_analysis_layout);
+        StatusBarUtil.setColor(CompeteAnalysisActivity.this, 0x00E8E8E8, 60);
 
         majorView = findViewById(R.id.major_view);
         selectProvince = findViewById(R.id.select_province);
         selectProvince.setOnClickListener(this);
         showProvince = findViewById(R.id.show_province_textview);
+        showBeian = findViewById(R.id.show_beian_textview);
         showCreditLevel = findViewById(R.id.show_credit_level);
         registerCapital = findViewById(R.id.register_capital);
         registerCapital.setOnClickListener(this);
@@ -125,8 +128,8 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
         addCompanyCapitude2.setOnClickListener(this);
         addCompanyCapitude3.setOnClickListener(this);
 
-        radioGroup = findViewById(R.id.beian);
-        radioGroup.setOnCheckedChangeListener(this);
+        beianLinearLayout = findViewById(R.id.select_beian);
+        beianLinearLayout.setOnClickListener(this);
 
         confirmKey = findViewById(R.id.confirm);
         confirmKey.setOnClickListener(this);
@@ -170,7 +173,7 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
                         //跳转至结果Activity的处理代码
                         Intent intent = new Intent(CompeteAnalysisActivity.this, CompeteAnalysisResultActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.new_enter_from_bottom, R.anim.old_exit_to_bottom);
+                        overridePendingTransition(R.anim.new_enter_from_bottom, R.anim.old_exit_to_top);
                         majorView.setVisibility(View.VISIBLE);
 
                         break;
@@ -183,6 +186,46 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.select_beian:
+                AlertDialog.Builder builder_beian = new AlertDialog.Builder(CompeteAnalysisActivity.this);
+                View beianSelectedView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.common_listview, null);
+                ListView beianListView = beianSelectedView.findViewById(R.id.common_listview);
+
+                ArrayAdapter<String> adapter_beian = new ArrayAdapter(getApplicationContext(), R.layout.common_item_selected_layout, R.id.common_listview_item, beianArray);
+                beianListView.setAdapter(adapter_beian);
+
+                builder_beian.setView(beianSelectedView);
+
+                final AlertDialog dialog_beian = builder_beian.create();
+                beianListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        showBeian.setText(beianArray[i]);
+
+                        switch (beianArray[i]) {
+                            case "无":
+                                queryData.put("beian", "0");
+                                break;
+
+                            case "本地企业":
+                                queryData.put("beian", "1");
+                                break;
+                            case "省外企业":
+                                queryData.put("beian", "2");
+                                break;
+                            case "全部":
+                                queryData.put("beian", "3");
+                                break;
+
+                        }
+                        dialog_beian.cancel();
+                    }
+                });
+                dialog_beian.show();
+
+
+                break;
+
             case R.id.select_province:
                 AlertDialog.Builder builder = new AlertDialog.Builder(CompeteAnalysisActivity.this);
                 View provinceSelectedView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.common_listview, null);
@@ -228,7 +271,9 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         typeAndLevel = typeArray[i];
                         dialog_2.cancel();
-                        if (i == 2) {
+                        if (i == 0) {
+                            showCreditLevel.setText("无");
+                        } else if (i == 2) {
                             if (queryData.get("area_id") == null) {
                                 Toast.makeText(getApplicationContext(), "请先选择省份", Toast.LENGTH_SHORT).show();
                             } else {
@@ -501,31 +546,5 @@ public class CompeteAnalysisActivity extends Activity implements View.OnClickLis
         WindowManager.LayoutParams lp = CompeteAnalysisActivity.this.getWindow().getAttributes();
         lp.alpha = bgAlpha; //0.0-1.0
         CompeteAnalysisActivity.this.getWindow().setAttributes(lp);
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-        switch (i) {
-            case R.id.no_record:
-                queryData.put("beian", "0");
-
-                break;
-
-            case R.id.local_company:
-                queryData.put("beian", "1");
-
-                break;
-
-            case R.id.company_out_of_province:
-                queryData.put("beian", "2");
-
-                break;
-
-            case R.id.all_company:
-                queryData.put("beian", "3");
-
-                break;
-
-        }
     }
 }

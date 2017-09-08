@@ -5,25 +5,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 
 import rednum.com.infbigand.Net.NetProcess;
+import rednum.com.infbigand.System.StatusBarUtil;
 import rednum.com.infbigand.UI.FlowLayout;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -31,7 +35,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ArrayList<String> hot_search_project = new ArrayList<>();
 
     private String[] textBackgrounds = {
-            "#FF6EB4", "#EE2C2C", "#8968CD", "#EE3A8C", "#CD8500", "#66CD00", "#8B7D6B", "#7B68EE", "#00868B", "#A0522D"
+            "#9F79EE", "#CD5C5C", "#CDAD00", "#8B7D6B", "#4682B4", "#668B8B", "#548B54", "#104E8B", "#1E90FF"
     };
 
     private FlowLayout hotCompany;
@@ -46,6 +50,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Handler handler;
     private LinkedList<TextView> companyTextViews;
 
+    private RadioGroup authenType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +62,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //        }
         setContentView(R.layout.activity_main);
 
+//        Random random = new Random();
+//        mColor = 0xff000000 | random.nextInt(0xffffff);
+        StatusBarUtil.setColor(MainActivity.this, 0x00E8E8E8, 60);
+
         hotCompany = findViewById(R.id.hot_company_search);
         hotProject = findViewById(R.id.hot_project_search);
         searchCompany = findViewById(R.id.search_company);
         searchProject = findViewById(R.id.search_project);
         editCompany = findViewById(R.id.company_name);
         editProject = findViewById(R.id.project_name);
+
+        authenType = findViewById(R.id.authentication_type);
 
         hot_search_company.add("中铁十局集团有限公司");
         hot_search_company.add("中交一公局桥隧工程有限公司");
@@ -82,6 +93,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setFlowLayoutProperty(hotCompany, hot_search_company);
         setFlowLayoutProperty(hotProject, hot_search_project);
 
+        authenType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                switch (i) {
+                    case R.id.government_authen:
+                        Log.i("authen", "===>政府认证");
+
+                        break;
+
+                    case R.id.enterprise_authen:
+                        Log.i("authen", "===>企业认证");
+
+
+                        break;
+                }
+            }
+        });
+
 
         handler = new Handler() {
             @Override
@@ -97,7 +126,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     case 102:
                         removeFlowLayoutSubview(hotProject);
                         setFlowLayoutProperty(hotProject, hot_search_project);
-
                 }
             }
         };
@@ -137,20 +165,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(), CompanyInfoShowActivity.class);
-                    if (flowLayout == hotCompany) {
-                        intent.putExtra("url", "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=name&company=" + content);
-                    } else if (flowLayout == hotProject) {
-                        intent.putExtra("url", "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=load&project=" + content);
+                    try {
+                        if (flowLayout == hotCompany) {
+                            intent.putExtra("url", "http://192.168.1.84:8080/titanweb/SolrTitanAction?method=name&company=" + URLEncoder.encode(content, "utf-8"));
+                        } else if (flowLayout == hotProject) {
+                            intent.putExtra("url", "http://192.168.1.84:8080/titanweb/SolrTitanAction?method=load&project=" + URLEncoder.encode(content, "utf-8"));
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
 
-
-                    Log.i("intent", "=====> 开始跳转");
                     startActivity(intent);
-                    overridePendingTransition(R.anim.new_enter_from_alpha, R.anim.old_exit_to_bottom);
-
+                    overridePendingTransition(R.anim.new_enter_from_alpha, R.anim.old_exit_to_alpha);
                 }
             });
-
 
             companyTextViews.add(tv);
         }

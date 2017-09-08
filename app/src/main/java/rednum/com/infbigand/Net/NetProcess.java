@@ -315,5 +315,86 @@ public class NetProcess {
         return null;
     }
 
+
+    public static LinkedTreeMap<String, String> getCompanyBaseInfo(String company) {
+        LinkedTreeMap<String, String> returnData;
+
+        String url = "http://192.168.1.84:8080/titanweb/SearchAction?method=baseInfo&company=" + company;
+        Document doc = null;
+
+        Log.i("company", "url=" + url);
+        try {
+            Log.i("company", "=====> 联网获取公司信息");
+            Connection conn = Jsoup.connect(url);
+            conn.timeout(5000);
+            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+
+            doc = conn.get();
+            String str = doc.select("body").text();
+
+            Gson gson = new Gson();
+            returnData = gson.fromJson(str, LinkedTreeMap.class);
+
+            return returnData;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static ArrayList<String> getCompanyZizhiInfo(String company) {
+        ArrayList<String> returnData;
+
+        String url = "http://192.168.1.84:8080/titanweb/SearchAction?method=zizhiInfo&company=" + company;
+        Document doc = null;
+
+        Log.i("company", "url=" + url);
+        try {
+            Log.i("zizhi", "=====> 联网获取资质信息");
+            Connection conn = Jsoup.connect(url);
+            conn.timeout(5000);
+            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+
+            doc = conn.get();
+            String str = doc.select("body").text();
+
+            Gson gson = new Gson();
+            returnData = gson.fromJson(str, ArrayList.class);
+
+            return returnData;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<LinkedTreeMap<String, Object>> getCreditLevelInfo(String company) {
+        ArrayList<LinkedTreeMap<String, Object>> returnData;
+
+        String url = "http://192.168.1.84:8080/titanweb/SearchAction?method=evalInfo&company=" + company;
+        Document doc = null;
+
+        Log.i("company", "url=" + url);
+        try {
+            Log.i("level", "=====> 联网获取资质信息");
+            Connection conn = Jsoup.connect(url);
+            conn.timeout(5000);
+            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+
+            doc = conn.get();
+            String str = doc.select("body").text();
+
+            Gson gson = new Gson();
+            returnData = gson.fromJson(str, ArrayList.class);
+
+            Log.i("level", "===>" + returnData);
+            return returnData;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 

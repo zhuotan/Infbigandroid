@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+
+import rednum.com.infbigand.System.StatusBarUtil;
 
 /**
  * Created by Administrator on 2017/8/28.
@@ -25,7 +28,9 @@ public class CompeteAnalysisResultActivity extends Activity implements View.OnCl
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.compete_analysis_result_layout);
+        StatusBarUtil.setColor(CompeteAnalysisResultActivity.this, 0x00E8E8E8, 60);
 
         ContextApplication application = (ContextApplication) getApplication();
         data = application.getData();

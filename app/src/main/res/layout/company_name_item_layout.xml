@@ -8,7 +8,6 @@
         android:id="@+id/company_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="福建省第一公路工程公司"
         android:textColor="#000000"
         android:textSize="20sp" />
 

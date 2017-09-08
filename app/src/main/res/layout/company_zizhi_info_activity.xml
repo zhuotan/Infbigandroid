@@ -5,7 +5,6 @@
     android:background="#E8E8E8"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp">
@@ -24,16 +23,17 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="信用评级"
+            android:text="资质信息"
             android:textSize="16sp" />
 
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/credit_level_listview"
+        android:id="@+id/company_zizhi_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="4dp"
-        android:background="@drawable/shape_background" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/shape_background"></ListView>
 
 </LinearLayout>

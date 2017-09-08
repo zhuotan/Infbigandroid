@@ -23,7 +23,8 @@
         <activity android:name=".CompanyBaseInfoActivity" />
         <activity android:name=".CompeteAnalysisResultActivity" />
         <activity android:name=".CompanyInfoShowActivity" />
-        <!--<activity android:name=".CreditLevelActivity" />-->
+        <activity android:name=".CompanyZizhiInfoActivity" />
+        <activity android:name=".CreditLevelActivity" />
     </application>
 
 </manifest>

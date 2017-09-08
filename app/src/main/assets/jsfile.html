@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <title>javascript调用android方法</title>
+</head>
+<body>
+
+<!--
+	 android是 webView.addJavascriptInterface(new JavaScriptinterface(this), "android") 中的第2个参数
+	 showDefineToast方法是JavaScriptinterface类中的原生方法
+-->
+<script type="text/javascript">   
+	function showToast() {
+    	android.showToast("这是从javascript传向android的参数");
+    }
+</script>
+<input type="button" value="调用" onClick="showToast()"/>
+</body>
+</html>

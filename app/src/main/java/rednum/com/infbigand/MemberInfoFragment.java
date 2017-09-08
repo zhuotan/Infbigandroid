@@ -3,6 +3,7 @@ package rednum.com.infbigand;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +22,14 @@ public class MemberInfoFragment extends Fragment {
     private ListView listView;
     private Bundle bundle;
     private ArrayList<String> memberInfoList;
+    private MemeberInfoAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = getArguments();
         memberInfoList = bundle.getStringArrayList("member_info_key");
+        adapter = new MemeberInfoAdapter();
     }
 
     @Nullable
@@ -34,10 +37,19 @@ public class MemberInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.memeber_info_layout, null);
         listView = view.findViewById(R.id.member_info_listview);
-        MemeberInfoAdapter adapter = new MemeberInfoAdapter();
+
         listView.setAdapter(adapter);
 
         return view;
+    }
+
+    public void updateData() {
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        } else {
+            Log.i("company", "============> adapter is NULL");
+        }
+
     }
 
 

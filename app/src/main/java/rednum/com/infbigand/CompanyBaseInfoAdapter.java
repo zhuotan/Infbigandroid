@@ -46,12 +46,16 @@ public class CompanyBaseInfoAdapter extends BaseAdapter {
         View itemView = null;
         if (i == 0) {
             itemView = inflater.inflate(R.layout.company_name_item_layout, null);
+            TextView companyName = itemView.findViewById(R.id.company_name);
+
+            String nameText = data.get(i).get("companyName").toString();
+            companyName.setText(nameText);
         } else {
             itemView = inflater.inflate(R.layout.compayn_not_name_item_layout, null);
             ImageView icon = itemView.findViewById(R.id.item_icon);
             TextView text = itemView.findViewById(R.id.item_text);
 
-            HashMap<String, Object> map = data.get(i - 1);
+            HashMap<String, Object> map = data.get(i);
 
             int icon_id = (int) map.get("icon");
             icon.setImageResource(icon_id);

@@ -1,10 +1,11 @@
 package rednum.com.infbigand;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.webkit.WebView;
+
+import rednum.com.infbigand.System.StatusBarUtil;
 
 public class ProjectTopoActivity extends Activity {
 
@@ -13,6 +14,7 @@ public class ProjectTopoActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_project_topo);
+        StatusBarUtil.setColor(ProjectTopoActivity.this, 0x00E8E8E8, 60);
         WebView webview = new WebView(this);
         //Enable JavaScript support
         webview.getSettings().setJavaScriptEnabled(true);
