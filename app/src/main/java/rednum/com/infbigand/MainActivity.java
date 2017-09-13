@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -91,8 +90,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         hot_search_project.add("汶川至马尔康");
         hot_search_project.add("河池至百色公路");
         hot_search_project.add("阳朔至鹿寨公路");
-
-        Toast.makeText(getApplicationContext(), "Use Mobile Data Traffic ? " + NetProcess.isUseMobile(MainActivity.this), Toast.LENGTH_SHORT).show();
 
 
         companyTextViews = new LinkedList<>();
