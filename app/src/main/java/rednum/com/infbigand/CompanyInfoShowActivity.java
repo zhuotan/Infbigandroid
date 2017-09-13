@@ -43,6 +43,8 @@ public class CompanyInfoShowActivity extends Activity {
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
 
+        Log.i("url", "===>传递过来的地址为:" + url);
+
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -97,6 +99,10 @@ public class CompanyInfoShowActivity extends Activity {
         settings.setAppCacheEnabled(true);
         settings.setLoadWithOverviewMode(true);
         settings.setDomStorageEnabled(true);
+        settings.setSupportZoom(true); // 可以缩放
+        settings.setBuiltInZoomControls(true); // 显示放大缩小 controler
+//        settings.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);// 默认缩放模式
+        settings.setUseWideViewPort(true);  //为图片添加放大缩小功能
 
         webView.addJavascriptInterface(new JavaScriptinterface(this), "android");
 

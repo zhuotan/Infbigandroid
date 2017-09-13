@@ -1,10 +1,13 @@
 package rednum.com.infbigand;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
@@ -35,7 +38,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ArrayList<String> hot_search_project = new ArrayList<>();
 
     private String[] textBackgrounds = {
-            "#B29F79EE", "#B2CD5C5C", "#B2CDAD00", "#B28B7D6B", "#B24682B4", "#B2668B8B", "#B2548B54", "#B2104E8B", "#B21E90FF"
+            "#649F79EE", "#64CD5C5C", "#64CDAD00", "#648B7D6B", "#644682B4", "#64668B8B", "#64548B54", "#64104E8B", "#641E90FF", "#64A020F0", "#64B03060",
+            "#646B8E23", "#640000EE", "#64DC143C", "#649B30FF", "#6400BFFF", "#649400D3", "#64EE30A7", "#64CDCD00", "#64191970", "#64787878"
     };
 
     private FlowLayout hotCompany;
@@ -47,10 +51,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private EditText editCompany;
     private EditText editProject;
 
+    private BroadcastReceiver networkChange; // 网络类型变化时的广播接收器
+    private IntentFilter networkChangeFilter;
+
     private Handler handler;
     private LinkedList<TextView> companyTextViews;
 
     private RadioGroup authenType;
+    private int index = 0; //默认情况下是政府认证，因此索引为0
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +92,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         hot_search_project.add("河池至百色公路");
         hot_search_project.add("阳朔至鹿寨公路");
 
+        Toast.makeText(getApplicationContext(), "Use Mobile Data Traffic ? " + NetProcess.isUseMobile(MainActivity.this), Toast.LENGTH_SHORT).show();
+
 
         companyTextViews = new LinkedList<>();
 
@@ -98,13 +108,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                 switch (i) {
                     case R.id.government_authen:
-                        Log.i("authen", "===>政府认证");
+                        index = 0;
 
                         break;
 
                     case R.id.enterprise_authen:
-                        Log.i("authen", "===>企业认证");
-
+                        index = 1;
 
                         break;
                 }
@@ -126,9 +135,29 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     case 102:
                         removeFlowLayoutSubview(hotProject);
                         setFlowLayoutProperty(hotProject, hot_search_project);
+
+                        break;
+
+                    case 0x901:
+                        Toast.makeText(getApplicationContext(), "无网络连接", Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
         };
+
+        networkChangeFilter = new IntentFilter();
+        networkChangeFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+
+        networkChange = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (NetProcess.isNetworkAvailable(MainActivity.this) && NetProcess.isUseMobile(MainActivity.this)) {
+                    Toast.makeText(getApplicationContext(), "当前使用手机流量，请注意流量使用情况", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        registerReceiver(networkChange, networkChangeFilter);
     }
 
     public static int dip2px(Context context, float dpValue) {
@@ -144,7 +173,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ranHeight);
             lp.setMargins(dip2px(this, 3), 0, dip2px(this, 3), 0);
             tv = new TextView(this);
-            tv.setOnClickListener(new TextViewOnClickListener());
             tv.setPadding(dip2px(this, 10), 0, dip2px(this, 10), 0);
             tv.setTextColor(Color.parseColor("#FFFFFF"));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
@@ -167,9 +195,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     Intent intent = new Intent(getApplicationContext(), CompanyInfoShowActivity.class);
                     try {
                         if (flowLayout == hotCompany) {
-                            intent.putExtra("url", "http://192.168.1.84:8080/titanweb/SolrTitanAction?method=name&company=" + URLEncoder.encode(content, "utf-8"));
+                            intent.putExtra("url", "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=name&company=" + URLEncoder.encode(content, "utf-8") + "&index=" + index);
                         } else if (flowLayout == hotProject) {
-                            intent.putExtra("url", "http://192.168.1.84:8080/titanweb/SolrTitanAction?method=load&project=" + URLEncoder.encode(content, "utf-8"));
+                            intent.putExtra("url", "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=load&project=" + URLEncoder.encode(content, "utf-8") + "&index=" + index);
                         }
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
@@ -193,10 +221,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     public void run() {
                         String companyName = editCompany.getText().toString();
                         if (companyName != null && !"".equals(companyName)) {
-                            hot_search_company.clear();
-                            hot_search_company = NetProcess.searchSpecifiedCompany(companyName);
+                            if (NetProcess.isNetworkAvailable(MainActivity.this)) {
+                                hot_search_company.clear();
+                                hot_search_company = NetProcess.searchSpecifiedCompany(companyName);
 
-                            handler.sendEmptyMessage(101);
+                                handler.sendEmptyMessage(101);
+                            } else {
+                                handler.sendEmptyMessage(0x901);
+                            }
                         }
                     }
                 }.start();
@@ -210,31 +242,32 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     public void run() {
                         String projectName = editProject.getText().toString();
                         if (projectName != null && !"".equals(projectName)) {
-                            hot_search_project.clear();
-                            hot_search_project = NetProcess.searchSpecifiedProject(projectName);
+                            if (NetProcess.isNetworkAvailable(MainActivity.this)) {
+                                hot_search_project.clear();
+                                hot_search_project = NetProcess.searchSpecifiedProject(projectName);
 
-                            handler.sendEmptyMessage(102);
+                                handler.sendEmptyMessage(102);
+                            } else {
+                                handler.sendEmptyMessage(0x901);
+                            }
                         }
                     }
                 }.start();
-
 
                 break;
         }
     }
 
-    class TextViewOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(networkChange);  // 注销接收网络状况变化的广播接收器
     }
+
 
     private void removeFlowLayoutSubview(FlowLayout flowLayout) {
         for (int i = 0; i < companyTextViews.size(); i++) {
             flowLayout.removeView(companyTextViews.get(i));
         }
     }
-
-
 }

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class CompanyZizhiInfoActivity extends Activity {
     private ArrayList<String> data;
     private String companyName;
     private ImageView backKey;
+    private ProgressBar progress;
 
     private Handler mHandler;
 
@@ -40,13 +43,29 @@ public class CompanyZizhiInfoActivity extends Activity {
         companyName = intent.getStringExtra("companyName");
         zizhiListView = findViewById(R.id.company_zizhi_listview);
         backKey = findViewById(R.id.back_key);
+        progress = findViewById(R.id.progress);
+        progress.setVisibility(View.VISIBLE);
 
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                if (msg.what == 0x3001) {
-                    adapter = new CompanyZizhiInfoAdapter(CompanyZizhiInfoActivity.this, data);
-                    zizhiListView.setAdapter(adapter);
+                switch (msg.what) {
+                    case 0x3001:
+                        progress.setVisibility(View.GONE);
+                        adapter = new CompanyZizhiInfoAdapter(CompanyZizhiInfoActivity.this, data);
+                        zizhiListView.setAdapter(adapter);
+
+                        break;
+
+                    case 0x801:
+                        Toast.makeText(getApplicationContext(), "数据获取异常，未获取有效数据", Toast.LENGTH_SHORT).show();
+
+                        break;
+
+                    case 0x901:
+                        Toast.makeText(getApplicationContext(), "无网络连接", Toast.LENGTH_SHORT).show();
+
+                        break;
                 }
             }
         };
@@ -54,8 +73,17 @@ public class CompanyZizhiInfoActivity extends Activity {
         new Thread() {
             @Override
             public void run() {
-                data = NetProcess.getCompanyZizhiInfo(companyName);
-                mHandler.sendEmptyMessage(0x3001);
+                if (NetProcess.isNetworkAvailable(CompanyZizhiInfoActivity.this)) {
+                    data = NetProcess.getCompanyZizhiInfo(companyName);
+                    if (data != null) {
+                        mHandler.sendEmptyMessage(0x3001);
+                    } else {
+                        mHandler.sendEmptyMessage(0x801);
+                    }
+                } else {
+                    mHandler.sendEmptyMessage(0x901);
+                }
+
             }
         }.start();
 

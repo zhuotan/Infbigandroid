@@ -29,13 +29,28 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/credit_level_listview"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp"
-        android:background="@drawable/shape_background"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp" />
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/credit_level_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:background="@drawable/shape_background"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@style/RedNum_ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/progressbar_rotate"
+            android:visibility="gone" />
+    </FrameLayout>
 
 </LinearLayout>
