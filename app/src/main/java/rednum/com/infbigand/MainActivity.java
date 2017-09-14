@@ -1,23 +1,33 @@
 package rednum.com.infbigand;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +36,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import rednum.com.infbigand.Net.NetProcess;
 import rednum.com.infbigand.System.StatusBarUtil;
@@ -50,6 +61,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private EditText editCompany;
     private EditText editProject;
 
+    private ImageView guidePage;
+    private LinearLayout mainContent;
+    private Animation anim1;
+    private Animation anim2;
+
     private BroadcastReceiver networkChange; // 网络类型变化时的广播接收器
     private IntentFilter networkChangeFilter;
 
@@ -63,7 +79,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            Window window = getWindow();
 //            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        }
@@ -72,6 +88,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //        Random random = new Random();
 //        mColor = 0xff000000 | random.nextInt(0xffffff);
         StatusBarUtil.setColor(MainActivity.this, 0x00E8E8E8, 60);
+
+        guidePage = findViewById(R.id.guide_page);
+        mainContent = findViewById(R.id.main_content);
+
+        anim1 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.mainactivity_scale_in);
+        anim1.setFillAfter(true);
+        anim2 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.mainactivity_content_fade_in);
+        anim1.setFillAfter(true);
+
+        guidePage.startAnimation(anim1);
+        mainContent.startAnimation(anim2);
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(0x123);
+            }
+        }, 4000);
 
         hotCompany = findViewById(R.id.hot_company_search);
         hotProject = findViewById(R.id.hot_project_search);
@@ -137,6 +171,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                     case 0x901:
                         Toast.makeText(getApplicationContext(), "无网络连接", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 0x123:
+                        guidePage.setVisibility(View.GONE);
+
                         break;
                 }
             }
@@ -266,5 +305,37 @@ public class MainActivity extends Activity implements View.OnClickListener {
         for (int i = 0; i < companyTextViews.size(); i++) {
             flowLayout.removeView(companyTextViews.get(i));
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+            View view = inflater.inflate(R.layout.exit_app_layout, null);
+            TextView cancel = view.findViewById(R.id.cancel);
+
+            builder.setView(view);
+            final AlertDialog dialog = builder.create();
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            TextView confirm = view.findViewById(R.id.confirm);
+            confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+
+            dialog.show();
+
+        }
+        return true;
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -94,5 +95,14 @@ public class CompanyZizhiInfoActivity extends Activity {
                 overridePendingTransition(R.anim.new_enter_from_left, R.anim.old_exit_to_right);
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            overridePendingTransition(R.anim.new_enter_from_left, R.anim.old_exit_to_right);
+        }
+        return true;
     }
 }

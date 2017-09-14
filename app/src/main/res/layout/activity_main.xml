@@ -6,194 +6,204 @@
     android:background="#E8E8E8"
     android:orientation="vertical">
 
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
+        android:layout_height="match_parent">
 
-
-        <RadioGroup
-            android:id="@+id/authentication_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/government_authen"
-                style="@style/FormRadioButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="政府认证" />
-
-            <RadioButton
-                android:id="@+id/enterprise_authen"
-                style="@style/FormRadioButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="企业认证" />
-        </RadioGroup>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/guide_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
+            android:background="@mipmap/guide_page" />
+
+        <LinearLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+
+            <RadioGroup
+                android:id="@+id/authentication_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/government_authen"
+                    style="@style/FormRadioButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="政府认证" />
+
+                <RadioButton
+                    android:id="@+id/enterprise_authen"
+                    style="@style/FormRadioButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="企业认证" />
+            </RadioGroup>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/search_shape_cornor"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/search_by_company_name"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:background="@mipmap/search_icon"
-                            android:scaleType="centerInside" />
-
-                        <EditText
-                            android:id="@+id/company_name"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
-                            android:layout_gravity="left|center_vertical"
+                            android:layout_marginRight="8dp"
                             android:layout_weight="1"
-                            android:background="@null"
-                            android:hint="请输入公司名称"
-                            android:singleLine="true"
-                            android:textSize="15sp" />
+                            android:background="@drawable/search_shape_cornor"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/search_by_company_name"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@mipmap/search_icon"
+                                android:scaleType="centerInside" />
+
+                            <EditText
+                                android:id="@+id/company_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_gravity="left|center_vertical"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:hint="请输入公司名称"
+                                android:singleLine="true"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/search_company"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/text_background"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="确定"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/search_company"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/text_background"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="确定"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp">
-
-                    <rednum.com.infbigand.UI.FlowLayout
-                        android:id="@+id/hot_company_search"
+                    <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:lineSpacing="10dp" />
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp">
 
-                </ScrollView>
+                        <rednum.com.infbigand.UI.FlowLayout
+                            android:id="@+id/hot_company_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:lineSpacing="10dp" />
+
+                    </ScrollView>
 
 
-            </LinearLayout>
+                </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/search_shape_cornor"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/search_by_project_name"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:background="@mipmap/search_icon"
-                            android:scaleType="centerInside" />
-
-                        <EditText
-                            android:id="@+id/project_name"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
-                            android:layout_gravity="left|center_vertical"
+                            android:layout_marginRight="8dp"
                             android:layout_weight="1"
-                            android:background="@null"
-                            android:hint="请输入项目名称"
-                            android:singleLine="true"
-                            android:textSize="15sp" />
+                            android:background="@drawable/search_shape_cornor"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/search_by_project_name"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@mipmap/search_icon"
+                                android:scaleType="centerInside" />
+
+                            <EditText
+                                android:id="@+id/project_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_gravity="left|center_vertical"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:hint="请输入项目名称"
+                                android:singleLine="true"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/search_project"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/text_background"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="确定"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/search_project"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/text_background"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="确定"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp" />
 
-                </LinearLayout>
-
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp">
-
-                    <rednum.com.infbigand.UI.FlowLayout
-                        android:id="@+id/hot_project_search"
+                    <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:lineSpacing="10dp" />
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp">
 
-                </ScrollView>
+                        <rednum.com.infbigand.UI.FlowLayout
+                            android:id="@+id/hot_project_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:lineSpacing="10dp" />
 
+                    </ScrollView>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-
+    </FrameLayout>
 
 </LinearLayout>
