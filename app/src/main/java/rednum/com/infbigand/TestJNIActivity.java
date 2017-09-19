@@ -3,6 +3,7 @@ package rednum.com.infbigand;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +41,8 @@ public class TestJNIActivity extends Activity {
 
 //                String priStr = new String(encryption);
 
+                Log.i("yang", "--->" + encryption);
+
                 output.setText(encryption);
             }
         });
@@ -50,7 +53,7 @@ public class TestJNIActivity extends Activity {
             public void onClick(View view) {
                 String content = inputPri.getText().toString();
                 String decryption = En_Dn_crypt.decode(content.toCharArray());
-
+                Log.i("yang", "===>" + decryption);
                 outputPri.setText(decryption);
             }
         });
