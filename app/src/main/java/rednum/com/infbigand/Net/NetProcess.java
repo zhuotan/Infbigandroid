@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -13,10 +14,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import rednum.com.infbigand.Security.AndroidDes3Util;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -66,11 +71,14 @@ public class NetProcess {
     public static ArrayList<String> getIntellNameList(String type) {
         ArrayList<String> returnData = new ArrayList<>();
 
-        String url = "http://221.237.189.104:8080/suitangmap/CptAnalysisAction?method=getIntellType&company_type=" + type;
-        Document doc = null;
-
+        String url = null;
         try {
+            url = "http://221.237.189.104:8080/suitangmap/CptAnalysisAction?method=getIntellType&company_type=" + type + "&sign=" + AndroidDes3Util.encode(String.valueOf(getCurrentTimeStamp()));
+
+            Document doc = null;
+
             Connection conn = Jsoup.connect(url);
+            conn.timeout(60000);
             conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
             doc = conn.get();
@@ -84,23 +92,23 @@ public class NetProcess {
                 String content = map.get("INTELLIGENCE");
                 returnData.add(content);
             }
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return returnData;
-
     }
 
     public static ArrayList<String> getIntellLevelList(String type, String name) {
         ArrayList<String> returnData = new ArrayList<>();
 
-        String url = "http://221.237.189.104:8080/suitangmap/CptAnalysisAction?method=getIntellType&company_type=" + type + "&intelligence=" + name;
-        Document doc = null;
-
+        String url = null;
         try {
+            url = "http://221.237.189.104:8080/suitangmap/CptAnalysisAction?method=getIntellType&company_type=" + type + "&intelligence=" + name + "&sign=" + AndroidDes3Util.encode(String.valueOf(getCurrentTimeStamp()));
+
+            Document doc = null;
             Connection conn = Jsoup.connect(url);
+            conn.timeout(60000);
             conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
             doc = conn.get();
@@ -115,10 +123,10 @@ public class NetProcess {
                 String content = map.get("INTELLIGENCE_GRADE");
                 returnData.add(content);
             }
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         return returnData;
 
@@ -127,11 +135,13 @@ public class NetProcess {
     public static LinkedList<HashMap<String, String>> requestQeuryData(HashMap<String, String> getRequestHead) {
         LinkedList<HashMap<String, String>> returnData = new LinkedList<>();
 
-        String url = "http://221.237.189.104:8080/suitangmap/CptAnalysisAction?method=GetInfo&area_id=" + (getRequestHead.get("area_id") == null ? "" : getRequestHead.get("area_id")) + "&beian=" + (getRequestHead.get("beian") == null ? "" : getRequestHead.get("beian")) + "&xinyong=" + (getRequestHead.get("xinyong") == null ? "" : getRequestHead.get("xinyong")) +
-                "&zizhi=" + (getRequestHead.get("zizhi") == null ? "" : getRequestHead.get("zizhi")) + "&zijin=" + (getRequestHead.get("zijin") == null ? "" : getRequestHead.get("zijin")) + "&level=" + (getRequestHead.get("level") == null ? "" : getRequestHead.get("level"));
-        Document doc = null;
-
+        String url = null;
         try {
+            url = "http://221.237.189.104:8080/suitangmap/CptAnalysisAction?method=GetInfo&area_id=" + (getRequestHead.get("area_id") == null ? "" : getRequestHead.get("area_id")) + "&beian=" + (getRequestHead.get("beian") == null ? "" : getRequestHead.get("beian")) + "&xinyong=" + (getRequestHead.get("xinyong") == null ? "" : getRequestHead.get("xinyong")) +
+                    "&zizhi=" + (getRequestHead.get("zizhi") == null ? "" : getRequestHead.get("zizhi")) + "&zijin=" + (getRequestHead.get("zijin") == null ? "" : getRequestHead.get("zijin")) + "&level=" + (getRequestHead.get("level") == null ? "" : getRequestHead.get("level")) + "&sign=" + AndroidDes3Util.encode(String.valueOf(getCurrentTimeStamp()));
+
+            Document doc = null;
+
             Connection conn = Jsoup.connect(url);
             conn.timeout(60000);
             conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
@@ -159,57 +169,77 @@ public class NetProcess {
 
                 returnData.add(data);
             }
-        } catch (IOException e) {
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return returnData;
     }
 
-    public static ArrayList<String> searchSpecifiedCompany(String company) {
+    /**
+     * 搜索公司的方法
+     */
+    public static ArrayList<String> searchSpecifiedCompany(String company, int index) {
         ArrayList<String> returnData;
-
-        String url = "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=nameSearch&name=" + company;
-        Document doc = null;
-
+        String url = null;
         try {
-            Connection conn = Jsoup.connect(url);
-            conn.timeout(5000);
-            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+            //PC端访问：http://221.237.189.104:8080/titanweb/SolrTitanAction?method=nameSearch&name=%E4%B8%AD%E9%93%81&index=0
+            //MO端访问：http://221.237.189.104:8080/titanweb/SolrTitanAction?method=nameSearch&name=中铁&index=0&sign=0b+BdHRAyKGdaez8g+uxCA==
+            url = "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=nameSearch&name=" + company + "&index=" + index + "&sign=" + AndroidDes3Util.encode(String.valueOf(getCurrentTimeStamp()));
+            Document doc = null;
 
-            doc = conn.get();
-            String str = doc.select("body").text();
+            try {
+                Connection conn = Jsoup.connect(url);
+                conn.timeout(60000);
+                conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
-            Gson gson = new Gson();
-            returnData = gson.fromJson(str, ArrayList.class);
+                doc = conn.get();
+                String str = doc.select("body").text();
 
-            return returnData;
+                Gson gson = new Gson();
+                returnData = gson.fromJson(str, ArrayList.class);
 
-        } catch (IOException e) {
+                return returnData;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static ArrayList<String> searchSpecifiedProject(String project) {
+    public static ArrayList<String> searchSpecifiedProject(String project, int index) {
         ArrayList<String> returnData;
 
-        String url = "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=projectSearch&name=" + project;
-        Document doc = null;
-
         try {
-            Connection conn = Jsoup.connect(url);
-            conn.timeout(5000);
-            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+            String url = "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=projectSearch&name=" + project + "&index=" + index + "&sign=" + AndroidDes3Util.encode(String.valueOf(getCurrentTimeStamp()));
 
-            doc = conn.get();
-            String str = doc.select("body").text();
+            Document doc = null;
 
-            Gson gson = new Gson();
-            returnData = gson.fromJson(str, ArrayList.class);
+            try {
+                Connection conn = Jsoup.connect(url);
+                conn.timeout(60000);
+                conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
-            return returnData;
+                doc = conn.get();
+                String str = doc.select("body").text();
 
-        } catch (IOException e) {
+                Gson gson = new Gson();
+                returnData = gson.fromJson(str, ArrayList.class);
+
+                return returnData;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -220,12 +250,14 @@ public class NetProcess {
     public static LinkedTreeMap<String, String> getCompanyBaseInfo(String company) {
         LinkedTreeMap<String, String> returnData;
 
-        String url = "http://221.237.189.104:8080/titanweb/SearchAction?method=baseInfo&company=" + company;
-        Document doc = null;
-
+        String url = null;
         try {
+            url = "http://221.237.189.104:8080/titanweb/SearchAction?method=baseInfo&company=" + company + "&sign=" + AndroidDes3Util.encode(String.valueOf(getCurrentTimeStamp()));
+
+            Document doc = null;
+
             Connection conn = Jsoup.connect(url);
-            conn.timeout(5000);
+            conn.timeout(60000);
             conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
             doc = conn.get();
@@ -235,10 +267,10 @@ public class NetProcess {
             returnData = gson.fromJson(str, LinkedTreeMap.class);
 
             return returnData;
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -246,12 +278,14 @@ public class NetProcess {
     public static ArrayList<String> getCompanyZizhiInfo(String company) {
         ArrayList<String> returnData;
 
-        String url = "http://221.237.189.104:8080/titanweb/SearchAction?method=zizhiInfo&company=" + company;
-        Document doc = null;
-
+        String url = null;
         try {
+            url = "http://221.237.189.104:8080/titanweb/SearchAction?method=zizhiInfo&company=" + company + "&sign=" + AndroidDes3Util.encode(String.valueOf(getCurrentTimeStamp()));
+
+            Document doc = null;
+
             Connection conn = Jsoup.connect(url);
-            conn.timeout(5000);
+            conn.timeout(60000);
             conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
             doc = conn.get();
@@ -261,21 +295,24 @@ public class NetProcess {
             returnData = gson.fromJson(str, ArrayList.class);
 
             return returnData;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
     public static ArrayList<LinkedTreeMap<String, Object>> getCreditLevelInfo(String company) {
         ArrayList<LinkedTreeMap<String, Object>> returnData;
 
-        String url = "http://221.237.189.104:8080/titanweb/SearchAction?method=evalInfo&company=" + company;
-        Document doc = null;
-
+        String url = null;
         try {
+            url = "http://221.237.189.104:8080/titanweb/SearchAction?method=evalInfo&company=" + company + "&sign=" + AndroidDes3Util.encode(String.valueOf(getCurrentTimeStamp()));
+
+            Document doc = null;
+
             Connection conn = Jsoup.connect(url);
-            conn.timeout(5000);
+            conn.timeout(60000);
             conn.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
             doc = conn.get();
@@ -283,10 +320,14 @@ public class NetProcess {
             Gson gson = new Gson();
             returnData = gson.fromJson(str, ArrayList.class);
             return returnData;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static long getCurrentTimeStamp() {
+        return System.currentTimeMillis();
     }
 }
 

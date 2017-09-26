@@ -7,8 +7,8 @@ android {
         applicationId "rednum.com.infbigand"
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             moduleName "JNI_en_de_cryption"
@@ -34,4 +34,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/gson-2.7.jar')
     compile files('libs/jsoup-1.10.3.jar')
+    compile files('D:/ProjectCode/jijiantong_android/Infbigandroid/libs/AMap2DMap_5.2.0_AMapSearch_5.3.1_AMapLocation_3.6.0_20170918.jar')
 }

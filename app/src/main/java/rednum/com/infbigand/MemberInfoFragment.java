@@ -46,10 +46,7 @@ public class MemberInfoFragment extends Fragment {
     public void updateData() {
         if (adapter != null) {
             adapter.notifyDataSetChanged();
-        } else {
-            Log.i("company", "============> adapter is NULL");
         }
-
     }
 
 

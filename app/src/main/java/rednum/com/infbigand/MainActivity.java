@@ -40,6 +40,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import rednum.com.infbigand.Net.NetProcess;
+import rednum.com.infbigand.Security.AndroidDes3Util;
 import rednum.com.infbigand.System.StatusBarUtil;
 import rednum.com.infbigand.UI.FlowLayout;
 
@@ -116,14 +117,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         authenType = findViewById(R.id.authentication_type);
 
-        hot_search_company.add("中铁十局集团有限公司");
-        hot_search_company.add("中交一公局桥隧工程有限公司");
-        hot_search_company.add("道隧集团工程有限公司");
-
-        hot_search_project.add("雅安至康定");
-        hot_search_project.add("汶川至马尔康");
-        hot_search_project.add("河池至百色公路");
-        hot_search_project.add("阳朔至鹿寨公路");
+//        hot_search_company.add("中铁十局集团有限公司");
+//        hot_search_company.add("中交一公局桥隧工程有限公司");
+//        hot_search_company.add("道隧集团工程有限公司");
+//
+//        hot_search_project.add("雅安至康定");
+//        hot_search_project.add("汶川至马尔康");
+//        hot_search_project.add("河池至百色公路");
+//        hot_search_project.add("阳朔至鹿寨公路");
 
 
         companyTextViews = new LinkedList<>();
@@ -230,12 +231,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(), CompanyInfoShowActivity.class);
                     try {
+                        long timestamp = NetProcess.getCurrentTimeStamp();
                         if (flowLayout == hotCompany) {
-                            intent.putExtra("url", "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=name&company=" + URLEncoder.encode(content, "utf-8") + "&index=" + index);
+                            intent.putExtra("url", "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=name&company=" + URLEncoder.encode(content, "utf-8") + "&index=" + index + "&sign=" + AndroidDes3Util.encode(String.valueOf(timestamp)));
                         } else if (flowLayout == hotProject) {
-                            intent.putExtra("url", "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=load&project=" + URLEncoder.encode(content, "utf-8") + "&index=" + index);
+                            intent.putExtra("url", "http://221.237.189.104:8080/titanweb/SolrTitanAction?method=load&project=" + URLEncoder.encode(content, "utf-8") + "&index=" + index + "&sign=" + AndroidDes3Util.encode(String.valueOf(timestamp)));
                         }
                     } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -259,7 +263,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         if (companyName != null && !"".equals(companyName)) {
                             if (NetProcess.isNetworkAvailable(MainActivity.this)) {
                                 hot_search_company.clear();
-                                hot_search_company = NetProcess.searchSpecifiedCompany(companyName);
+                                hot_search_company = NetProcess.searchSpecifiedCompany(companyName, index);
 
                                 handler.sendEmptyMessage(101);
                             } else {
@@ -280,7 +284,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         if (projectName != null && !"".equals(projectName)) {
                             if (NetProcess.isNetworkAvailable(MainActivity.this)) {
                                 hot_search_project.clear();
-                                hot_search_project = NetProcess.searchSpecifiedProject(projectName);
+                                hot_search_project = NetProcess.searchSpecifiedProject(projectName, index);
 
                                 handler.sendEmptyMessage(102);
                             } else {

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -99,7 +98,6 @@ public class CompanyBaseInfoActivity extends Activity implements View.OnClickLis
         new Thread() {
             @Override
             public void run() {
-                Log.i("test", "===> 公司名为:" + companyName);
                 if (NetProcess.isNetworkAvailable(CompanyBaseInfoActivity.this)) {
                     sourceData = NetProcess.getCompanyBaseInfo(companyName);
                     if (sourceData != null) {

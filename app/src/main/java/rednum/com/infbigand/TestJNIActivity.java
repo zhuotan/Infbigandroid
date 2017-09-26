@@ -37,11 +37,9 @@ public class TestJNIActivity extends Activity {
             @Override
             public void onClick(View view) {
                 String content = input.getText().toString();
-                String encryption = En_Dn_crypt.encode(content.toCharArray());
-
-//                String priStr = new String(encryption);
-
-                Log.i("yang", "--->" + encryption);
+//                String encryption = En_Dn_crypt.encode(content.toCharArray());
+//                String encryption = En_Dn_crypt.getEncryptKey();
+                String encryption = En_Dn_crypt.decode("CGeDlrWqMcS971XGeDFeS081xe9VYMtPvaOPMieeGcqV81293".toCharArray());
 
                 output.setText(encryption);
             }
@@ -53,9 +51,10 @@ public class TestJNIActivity extends Activity {
             public void onClick(View view) {
                 String content = inputPri.getText().toString();
                 String decryption = En_Dn_crypt.decode(content.toCharArray());
-                Log.i("yang", "===>" + decryption);
+
                 outputPri.setText(decryption);
             }
         });
     }
 }
+

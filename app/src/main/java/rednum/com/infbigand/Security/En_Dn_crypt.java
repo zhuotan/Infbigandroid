@@ -12,6 +12,13 @@ public class En_Dn_crypt {
 
     // declare native method
     public static native String encode(char prim[]);
+
     // declare native method
     public static native String decode(char prim[]);
+
+    public static native String getDecodeKey();
+
+    public static native String getEncryptKey();
 }
+
+

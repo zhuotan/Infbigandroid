@@ -23,6 +23,22 @@ JNIEXPORT jstring JNICALL Java_rednum_com_infbigand_Security_En_1Dn_1crypt_encod
 JNIEXPORT jstring JNICALL Java_rednum_com_infbigand_Security_En_1Dn_1crypt_decode
   (JNIEnv *, jclass, jcharArray);
 
+/*
+ * Class:     rednum_com_infbigand_Security_En_Dn_crypt
+ * Method:    getDecodeKey
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_rednum_com_infbigand_Security_En_1Dn_1crypt_getDecodeKey
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     rednum_com_infbigand_Security_En_Dn_crypt
+ * Method:    getEncryptKey
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_rednum_com_infbigand_Security_En_1Dn_1crypt_getEncryptKey
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

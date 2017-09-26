@@ -106,6 +106,63 @@ JNIEXPORT jstring JNICALL Java_rednum_com_infbigand_Security_En_1Dn_1crypt_decod
     return (*env)->NewStringUTF(env, prim);
 }
 
+JNIEXPORT jstring JNICALL Java_rednum_com_infbigand_Security_En_1Dn_1crypt_getDecodeKey(JNIEnv *env, jclass jobj){
+    int n;
+
+    jcharArray char_array = "CGeDlrWqMcS971XGeDFeS081xe9VYMtPvaOPMieeGcqV81293";
+
+    char temp_char,trans_char;
+    int temp_num,trans_num;
+
+    // Get the char array's length
+    int len = (*env)->GetArrayLength(env, char_array);
+    char prim[len + 1];
+
+    // Get the first char in this char array
+    jchar* p = (*env)-> GetCharArrayElements(env,char_array,0);
+
+    for(int i = 0;i < len;i++) {
+        temp_char = *(p+i);             //Consider about the corresponding digit of character
+
+        if((temp_char >= '0' && temp_char <= '9') || temp_char == '/' || temp_char == '+'){
+            prim[i] = temp_char;
+        }else{
+            if (temp_char <= 'z' && temp_char >= 'a')
+                temp_num = temp_char - 'a' + 1;
+            else if (temp_char <= 'Z' && temp_char >= 'A')
+                temp_num = temp_char - 'A' + 27;
+
+            n = temp_num % 3;  //Mode 3 and compute primitive number
+            switch(n) {
+                case 0:
+                    trans_num = temp_num/3;
+                    break;
+                case 1:
+                    trans_num = 35 + temp_num/3;
+                    break;
+                case 2:
+                    trans_num = 18 + temp_num/3;
+                    break;
+                default:
+                    break;
+            }
+            //Transform number to character
+            if (trans_num > 26 && trans_num <= 52)
+                trans_char = 'A' + trans_num - 27;
+            else if (trans_num > 0 && trans_num <= 26)
+                trans_char = 'a' + trans_num - 1;
+
+            prim[i] = trans_char;
+        }
+    }
+    prim[len] = '\0';
+    return (*env)->NewStringUTF(env, prim);
+}
+
+JNIEXPORT jstring JNICALL Java_rednum_com_infbigand_Security_En_1Dn_1crypt_getEncryptKey (JNIEnv *env, jclass jobj){
+    return (*env)->NewStringUTF(env, "A928Aiqja[yiq74610/caia[Fsyw61]jahsbJA0192395");
+}
+
 #ifdef __cplusplus
 }
 #endif

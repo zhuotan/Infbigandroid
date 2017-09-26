@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -42,8 +41,6 @@ public class CompanyInfoShowActivity extends Activity {
 
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
-
-        Log.i("url", "===>传递过来的地址为:" + url);
 
         mHandler = new Handler() {
             @Override
@@ -105,8 +102,6 @@ public class CompanyInfoShowActivity extends Activity {
         settings.setUseWideViewPort(true);  //为图片添加放大缩小功能
 
         webView.addJavascriptInterface(new JavaScriptinterface(this), "android");
-
-        Log.i("address", "即将跳转到===>" + url);
 //        webView.loadUrl("file:///android_asset/jsfile.html");  // 目录名只能是android_test，而不是是assets
 
         webView.loadUrl(url);
@@ -127,7 +122,6 @@ public class CompanyInfoShowActivity extends Activity {
                 // 当页面中出现内容时就可以取消Progressbar的显示，故设置进度值为70而非100
                 if (newProgress <= 70) {
                     // 加载中
-                    Log.i("web", "网页正在加载中");
                     progressBar.setVisibility(View.VISIBLE);
 
                 } else {

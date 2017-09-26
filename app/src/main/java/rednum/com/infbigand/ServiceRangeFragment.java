@@ -3,6 +3,7 @@ package rednum.com.infbigand;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,13 @@ public class ServiceRangeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.service_range_layout, null);
         TextView serviceRangeText = view.findViewById(R.id.service_range_text);
-        serviceRangeText.setText(data);
+        if (data == null || data.length() == 0) {
+            serviceRangeText.setGravity(Gravity.CENTER_HORIZONTAL);
+            serviceRangeText.setText("无");
+        } else {
+            serviceRangeText.setText(data);
+        }
+
 
         return view;
     }
