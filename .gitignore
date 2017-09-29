@@ -7,3 +7,6 @@
 /build
 /captures
 .externalNativeBuild
+/app/src/main/java/rednum/com/infbigand/Security
+/app/src/main/java/rednum_com_infbigand_Security_En_Dn_crypt.h
+/app/src/main/jni
