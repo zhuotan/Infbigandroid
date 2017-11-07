@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Infbigand.iml" filepath="$PROJECT_DIR$/Infbigand.iml" />
+      <module fileurl="file://D:\ProjectCode\jijiantong_android\Infbigandroid\Infbigand.iml" filepath="D:\ProjectCode\jijiantong_android\Infbigandroid\Infbigand.iml" />
       <module fileurl="file://$PROJECT_DIR$/Infbigandroid.iml" filepath="$PROJECT_DIR$/Infbigandroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
